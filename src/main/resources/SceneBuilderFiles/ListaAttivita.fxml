@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.mpgc.jtime118724.Controller.ListaAttivitaController">
    <children>
-      <BorderPane layoutX="200.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+      <BorderPane layoutX="200.0" layoutY="100.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <top>
             <Label text="Lista Attività" BorderPane.alignment="CENTER">
                <font>
@@ -29,7 +29,7 @@
          <bottom>
             <HBox alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="580.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="nuova_attività" mnemonicParsing="false" text="Nuova Attività">
+                  <Button fx:id="nuovaAttività" mnemonicParsing="false" text="Nuova Attività">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

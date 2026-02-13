@@ -1,5 +1,7 @@
 package it.unicam.cs.mpgc.jtime118724.Model.Entities;
 
+import it.unicam.cs.mpgc.jtime118724.Model.Abstractions.StatoAttività;
+import it.unicam.cs.mpgc.jtime118724.Model.Abstractions.StatoProgetto;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -28,27 +30,29 @@ public class Progetto {
     private Duration tempo_tot_attuale = Duration.ZERO; // somma dei tempi attuali delle attività
 
     @OneToMany(mappedBy = "progetto",cascade = CascadeType.ALL)
-    private List<Attivita> attivita;
+    private List<Attivita> listaAttivita;
 
+    private StatoProgetto stato;
 
     protected Progetto(){ }
 
     public Progetto(String name, String descrizione) {
         this.nome = name;
         this.descrizione = descrizione;
-        this.attivita = new ArrayList<>();
+        this.listaAttivita = new ArrayList<>();
+        this.stato = StatoProgetto.NON_COMPLETATO;
     }
 
     public void addAttivita(Attivita attivita){
         boolean flag = true;
-        this.attivita.add(attivita);
+        this.listaAttivita.add(attivita);
         calcoloValoreTempoTotStimato(attivita, flag);
         attivita.setProgetto(this);
     }
 
     public void removeAttivita(Attivita attivita){
         Boolean flag = false;
-        this.attivita.remove(attivita);
+        this.listaAttivita.remove(attivita);
         calcoloValoreTempoTotStimato(attivita, flag);
         attivita.setProgetto(null);
     }
@@ -56,6 +60,18 @@ public class Progetto {
     private void calcoloValoreTempoTotStimato(Attivita attivita, Boolean flag){
         if(flag) this.tempo_tot_stimato = this.tempo_tot_stimato.plus(attivita.getTempo_stimato());
         else this.tempo_tot_stimato = this.tempo_tot_stimato.minus(attivita.getTempo_stimato());
+    }
+
+    private void completato(){
+       this.stato = this.stato.cambiaStato();
+    }
+
+    public void controlloStatoProgetto(){
+        boolean flag = false;
+        for(Attivita attivita : this.listaAttivita){
+            if(attivita.getStato() == StatoAttività.NON_TERMINATA)flag = true;
+        }
+        if(!flag) completato();
     }
 
 }

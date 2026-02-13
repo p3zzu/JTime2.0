@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.jtime118724.Model.Entities;
 
+import it.unicam.cs.mpgc.jtime118724.Model.Abstractions.StatoAttività;
 import it.unicam.cs.mpgc.jtime118724.Util.ConvertitoreDurationStringISO8610;
 import jakarta.persistence.*;
 import javafx.util.converter.LocalDateStringConverter;
@@ -36,12 +37,15 @@ public class Attivita {
     @JoinColumn(name = "PROGETTO_ID")
     private Progetto progetto;
 
+    private StatoAttività stato;
+
     protected Attivita() { }
 
     public Attivita(String nome, String descrizione, Duration t_s) {
         this.nome = nome;
         this.descrizione = descrizione;
         this.tempo_stimato = t_s;
+        this.stato = StatoAttività.NON_TERMINATA;
     }
 
 }

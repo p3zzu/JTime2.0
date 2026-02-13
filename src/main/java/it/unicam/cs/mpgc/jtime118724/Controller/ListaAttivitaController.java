@@ -24,7 +24,9 @@ public class ListaAttivitaController {
     private Button elimina;
 
     @FXML
-    private Button nuova_attività;
+    private Button nuovaAttività;
+
+
 
     private void initialize(){
         lista.setItems(listaAttivita);

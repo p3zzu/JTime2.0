@@ -1,6 +1,6 @@
 package it.unicam.cs.mpgc.jtime118724.Model.Entities;
 
-import it.unicam.cs.mpgc.jtime118724.Model.Abstractions.StatoAttività;
+import it.unicam.cs.mpgc.jtime118724.Model.Abstractions.StatoAttivita;
 import it.unicam.cs.mpgc.jtime118724.Model.Abstractions.StatoProgetto;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -32,6 +32,7 @@ public class Progetto {
     @OneToMany(mappedBy = "progetto",cascade = CascadeType.ALL)
     private List<Attivita> listaAttivita;
 
+    @Enumerated(EnumType.STRING)
     private StatoProgetto stato;
 
     protected Progetto(){ }
@@ -69,7 +70,7 @@ public class Progetto {
     public void controlloStatoProgetto(){
         boolean flag = false;
         for(Attivita attivita : this.listaAttivita){
-            if(attivita.getStato() == StatoAttività.NON_TERMINATA)flag = true;
+            if(attivita.getStato() == StatoAttivita.NON_TERMINATA)flag = true;
         }
         if(!flag) completato();
     }

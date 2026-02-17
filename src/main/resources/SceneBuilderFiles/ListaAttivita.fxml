@@ -29,7 +29,7 @@
          <bottom>
             <HBox alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="580.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="nuovaAttività" mnemonicParsing="false" text="Nuova Attività">
+                  <Button mnemonicParsing="false" onAction="#nuovaAttivita" text="Nuova Attività">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -37,12 +37,13 @@
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="elimina" mnemonicParsing="false" text="Elimina">
+                  <Button mnemonicParsing="false" onAction="#eliminaAttivita" text="Elimina">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="modifica" mnemonicParsing="false" text="Modifica">
+                  <Button mnemonicParsing="false" onAction="#eliminaTutto" text="Elimina tutto" />
+                  <Button mnemonicParsing="false" text="Modifica">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>

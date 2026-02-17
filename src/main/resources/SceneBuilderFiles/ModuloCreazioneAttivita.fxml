@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.mpgc.jtime118724.Controller;">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.mpgc.jtime118724.Controller.ModuloCreazioneAttivitaController">
    <children>
       <BorderPane layoutX="45.0" layoutY="27.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <center>
@@ -25,7 +25,7 @@
                               <Insets />
                            </opaqueInsets>
                         </Label>
-                        <TextField />
+                        <TextField fx:id="nome" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -38,7 +38,7 @@
                               <Insets />
                            </opaqueInsets>
                         </Label>
-                        <TextArea prefHeight="30.0" prefWidth="400.0" />
+                        <TextArea fx:id="descrizione" prefHeight="30.0" prefWidth="400.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -51,7 +51,7 @@
                               <Insets />
                            </opaqueInsets>
                         </Label>
-                        <TextField />
+                        <TextField fx:id="durataStimata" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -64,7 +64,7 @@
                               <Insets />
                            </opaqueInsets>
                         </Label>
-                        <TextField disable="true" />
+                        <TextField fx:id="durataEffettiva" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -73,7 +73,7 @@
                   <HBox prefHeight="29.0" prefWidth="477.0">
                      <children>
                         <Label prefHeight="20.0" prefWidth="120.0" text="Data_Pianificata" />
-                        <DatePicker disable="true" prefHeight="25.0" prefWidth="170.0" />
+                        <DatePicker fx:id="dataPianificata" prefHeight="25.0" prefWidth="170.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -86,7 +86,7 @@
                               <Insets />
                            </opaqueInsets>
                         </Label>
-                        <TextField disable="true" />
+                        <TextField fx:id="progettoAssegnato" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -99,8 +99,11 @@
                               <Insets />
                            </opaqueInsets>
                         </Label>
-                        <TextField disable="true" />
+                        <TextField fx:id="statoAttivita" />
                      </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
                   </HBox>
                </children>
             </VBox>
@@ -118,7 +121,7 @@
          <bottom>
             <HBox alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="580.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" text="Conferma">
+                  <Button fx:id="conferma" mnemonicParsing="false" onAction="#x" text="Conferma">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -126,7 +129,7 @@
                         <Insets right="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" text="Annulla">
+                  <Button fx:id="annulla" mnemonicParsing="false" text="Annulla">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>

@@ -1,6 +1,9 @@
 package it.unicam.cs.mpgc.jtime118724;
 
 
+
+
+import it.unicam.cs.mpgc.jtime118724.Util.ListaPathFXML;
 import it.unicam.cs.mpgc.jtime118724.Util.UiNavigatorUtil;
 import javafx.application.Application;
 
@@ -13,11 +16,12 @@ public class App extends Application {
     public void start(Stage stage) {
         stage.setTitle("JTime");
         UiNavigatorUtil.getInstance().init(stage);
-        UiNavigatorUtil.getInstance().cambiaScena("/SceneBuilderFiles/StartMenu.fxml");
+        UiNavigatorUtil.getInstance().goTo(ListaPathFXML.START_MENU);
     }
 
     public static void main(String[] args) {
         launch(args);
+
     }
 
 }

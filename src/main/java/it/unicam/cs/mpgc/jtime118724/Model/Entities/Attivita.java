@@ -1,13 +1,10 @@
 package it.unicam.cs.mpgc.jtime118724.Model.Entities;
 
-import it.unicam.cs.mpgc.jtime118724.Model.Abstractions.StatoAttività;
-import it.unicam.cs.mpgc.jtime118724.Util.ConvertitoreDurationStringISO8610;
+import it.unicam.cs.mpgc.jtime118724.Model.Abstractions.IAttivita;
+import it.unicam.cs.mpgc.jtime118724.Model.Abstractions.StatoAttivita;
+import it.unicam.cs.mpgc.jtime118724.Util.ConvertitoreLatoPersistenza;
 import jakarta.persistence.*;
-import javafx.util.converter.LocalDateStringConverter;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -15,7 +12,8 @@ import java.time.LocalDate;
 @Data
 @Entity
 @Table(name = "ATTIVITA")
-public class Attivita {
+@NamedQuery(name = "Attivita", query = "SELECT a FROM Attivita a")
+public class Attivita implements IAttivita {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +23,10 @@ public class Attivita {
 
     private String descrizione;
 
-    @Convert(converter = ConvertitoreDurationStringISO8610.class)
+    @Convert(converter = ConvertitoreLatoPersistenza.class)
     private Duration tempo_stimato;
 
-    @Convert(converter = ConvertitoreDurationStringISO8610.class)
+    @Convert(converter = ConvertitoreLatoPersistenza.class)
     private Duration tempo_effettivo;
 
     private LocalDate data_pianificata;
@@ -37,7 +35,8 @@ public class Attivita {
     @JoinColumn(name = "PROGETTO_ID")
     private Progetto progetto;
 
-    private StatoAttività stato;
+    @Enumerated(EnumType.STRING)
+    private StatoAttivita stato;
 
     protected Attivita() { }
 
@@ -45,7 +44,11 @@ public class Attivita {
         this.nome = nome;
         this.descrizione = descrizione;
         this.tempo_stimato = t_s;
-        this.stato = StatoAttività.NON_TERMINATA;
+        this.stato = StatoAttivita.NON_TERMINATA;
     }
 
+    public void setTempo_effettivo(Duration t_s) {
+        this.tempo_effettivo = t_s;
+        this.stato = this.stato.cambiaStato();
+    }
 }

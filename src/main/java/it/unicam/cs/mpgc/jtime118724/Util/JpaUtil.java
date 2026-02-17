@@ -5,6 +5,10 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import lombok.Getter;
 
+/**
+ * Serve per fornire la EntityManager senza ricaricare ogni volta le informazioni di configurazione di connessione.
+ */
+
 public class JpaUtil {
     @Getter
     private static final EntityManagerFactory emf = buildEntityManagerFactory();

@@ -29,8 +29,8 @@ public final class UiNavigatorUtil {
         this.stage = s;
     }
 
-    public void cambiaScena(String fxml){
-        URL url =controlloEsistenzaFileFxml(fxml);
+    public void goTo(ListaPathFXML fxml) {
+        URL url = check(fxml.getFxml());
         try{
             this.root = FXMLLoader.load(url);
             this.scene = new Scene(root);
@@ -50,7 +50,7 @@ public final class UiNavigatorUtil {
      * @param fxml
      * @return URL
      */
-    private URL controlloEsistenzaFileFxml(String fxml){
+    private URL check(String fxml){
         return Objects.requireNonNull(App.class.getResource(fxml), "File Fxml non trovato: " + fxml);
     }
 

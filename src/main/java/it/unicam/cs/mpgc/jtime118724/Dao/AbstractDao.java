@@ -8,15 +8,15 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class AbstractDao<T> implements IDao<T>{
+public abstract class AbstractDao<T> implements IDao<T>{
 
 
     private final Class<T> entityClass;
     private final String tableName;
 
-    public AbstractDao(Class<T> entityClass, String tableName) {
+    public AbstractDao(Class<T> entityClass) {
         this.entityClass = entityClass;
-        this.tableName = tableName.toUpperCase();
+        this.tableName = entityClass.getSimpleName().toUpperCase();
     }
 
     private void operationTransaction( Consumer<EntityManager> operation ) {
@@ -71,7 +71,7 @@ public class AbstractDao<T> implements IDao<T>{
     public void clearAndResetIdentity() {
         operationTransaction(em -> {
             em.createNativeQuery("DELETE FROM " + this.tableName).executeUpdate();// mi cancella tutte le righe della tabella
-            em.createNativeQuery("ALTER TABLE" + this.tableName + "ALTER COLUMN ID RESTART WITH 1").executeUpdate(); // fa ripartire l'autoincremento del valore dell'id a 1
+            em.createNativeQuery("ALTER TABLE " + this.tableName + " ALTER COLUMN ID RESTART WITH 1").executeUpdate(); // fa ripartire l'autoincremento del valore dell'id a 1
             //em.createNativeQuery("ALTER TABLE " + this.tableName + " ALTER COLUMN ID RESTART WITH 1").executeUpdate();
         });
     }

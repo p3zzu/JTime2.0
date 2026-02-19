@@ -74,7 +74,6 @@ public class SceneNavigator implements INavigator {
                 DataReceiver<T> r = (DataReceiver<T>) receiver;
                 r.setData(data);
             }
-
             stage.setScene(new Scene(root));
             stage.show();
 
@@ -85,8 +84,14 @@ public class SceneNavigator implements INavigator {
         }
     }
 
+
+
     private URL check(String fxml){
         return Objects.requireNonNull(App.class.getResource(fxml), "File Fxml non trovato: " + fxml);
+    }
+
+    public String stampa(){
+        return "ESISTO";
     }
 
 }

@@ -24,6 +24,8 @@ public class App extends Application {
 
         // passo la cassetta degli attrezzi al mio assistente che li consegnera ogni volta che andra da na scena ad un altra ai loro corrispettivi controller.
         INavigator navigator = new SceneNavigator(ctx);
+        //System.out.println(navigator.stampa());
+
         navigator.init(stage);
         navigator.goTo(ListaPathFXML.START_MENU);
 

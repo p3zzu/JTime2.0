@@ -10,15 +10,17 @@ public interface IAttivita {
 
     String getDescrizione();
 
-    java.time.Duration getTempo_stimato();
+    java.time.Duration getTempoStimato();
 
-    java.time.Duration getTempo_effettivo();
+    java.time.Duration getTempoEffettivo();
 
-    java.time.LocalDate getData_pianificata();
+    java.time.LocalDate getDataPianificata();
 
     Progetto getProgetto();
 
     Stato getStato();
+
+
 
     void setId(Long id);
 
@@ -26,11 +28,11 @@ public interface IAttivita {
 
     void setDescrizione(String descrizione);
 
-    void setTempo_stimato(java.time.Duration tempo_stimato);
+    void setTempoStimato(java.time.Duration tempo_stimato);
 
-    void setTempo_effettivo(java.time.Duration tempo_effettivo);
+    void setTempoEffettivo(java.time.Duration tempo_effettivo);
 
-    void setData_pianificata(java.time.LocalDate data_pianificata);
+    void setDataPianificata(java.time.LocalDate data_pianificata);
 
     void setProgetto(Progetto progetto);
 

@@ -58,7 +58,7 @@ public final class ConvertitoreLatoGui {
 
     public static String convertiDuration(Duration d) {
         if (d == null) return "";
-        if (d.isZero()) return "0 secondi";
+        if (d.isZero()) return "Non impostato";
         if (d.isNegative()) return "-" + convertiDuration(d.negated());
 
         long seconds = d.getSeconds();

@@ -6,6 +6,8 @@ public interface INavigator {
 
     void init(Stage primaryStage);
     void goTo(ListaPathFXML fxml);
+    <T> void goTo(ListaPathFXML fxml, T data);
+    String stampa();
 
 
 }

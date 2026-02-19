@@ -65,8 +65,8 @@ public class Progetto {
     }
 
     private void calcoloValoreTempoTotStimato(Attivita attivita, Boolean flag){
-        if(flag) this.tempo_tot_stimato = this.tempo_tot_stimato.plus(attivita.getTempo_stimato());
-        else this.tempo_tot_stimato = this.tempo_tot_stimato.minus(attivita.getTempo_stimato());
+        if(flag) this.tempo_tot_stimato = this.tempo_tot_stimato.plus(attivita.getTempoStimato());
+        else this.tempo_tot_stimato = this.tempo_tot_stimato.minus(attivita.getTempoStimato());
     }
 
     private void completato(){

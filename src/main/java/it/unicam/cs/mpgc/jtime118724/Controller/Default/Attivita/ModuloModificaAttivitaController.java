@@ -5,11 +5,9 @@ import it.unicam.cs.mpgc.jtime118724.Controller.Abstract.IController;
 import it.unicam.cs.mpgc.jtime118724.Infrastructure.AppContext;
 import it.unicam.cs.mpgc.jtime118724.Model.Entities.Attivita;
 import it.unicam.cs.mpgc.jtime118724.Navigator.INavigator;
+import it.unicam.cs.mpgc.jtime118724.Util.ConvertitoreLatoGui;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class ModuloModificaAttivitaController implements IController, DataReceiver <Attivita> {
     @FXML
@@ -33,6 +31,12 @@ public class ModuloModificaAttivitaController implements IController, DataReceiv
     @FXML
     private Label statoAttivita;
 
+    @FXML
+    private Button conferma;
+
+    @FXML
+    private Button annulla;
+
     private INavigator navigator;
 
     private AppContext appContext;
@@ -45,10 +49,6 @@ public class ModuloModificaAttivitaController implements IController, DataReceiv
    private void initialize(){
 
    }
-
-
-
-
 
     /**
      * @param ctx
@@ -66,7 +66,17 @@ public class ModuloModificaAttivitaController implements IController, DataReceiv
     @Override
     public void setData(Attivita data) {
         this.attivita = data;
+        configTextFields();
     }
+
+    private void configTextFields(){
+        this.nome.setText(attivita.getNome());
+        this.descrizione.setText(attivita.getDescrizione());
+        this.durataStimata.setText(ConvertitoreLatoGui.convertiDuration(attivita.getTempoStimato()));
+
+    }
+
+
 
 
 }

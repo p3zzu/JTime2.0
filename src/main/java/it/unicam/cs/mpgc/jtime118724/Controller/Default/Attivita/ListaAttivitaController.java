@@ -6,14 +6,11 @@ import it.unicam.cs.mpgc.jtime118724.Infrastructure.AppContext;
 import it.unicam.cs.mpgc.jtime118724.Model.Entities.Attivita;
 import it.unicam.cs.mpgc.jtime118724.Navigator.INavigator;
 import it.unicam.cs.mpgc.jtime118724.Navigator.ListaPathFXML;
+import it.unicam.cs.mpgc.jtime118724.Util.AlertUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
-
-import java.io.IOException;
 
 /**
  * Gestisce gli eventi scaturiti dalla view ListaAttivita.fxml
@@ -34,17 +31,11 @@ public class ListaAttivitaController implements IController {
 
     private IAttivitaDao dao;
 
-    private String message1 = "Vuoi eliminare l'attività: ";
-
-    private String message2 = "Vuoi eliminare tutto il contenuto della lista ?";
 
 
     @FXML
     private void initialize(){
 
-
-        listaAttivitaNonTerminate.addAll(dao.getListaAttivitaNonTerminate());
-        listaAttivitaTerminate.addAll(dao.getListaAttivitaTerminate());
         lista1.setItems(listaAttivitaNonTerminate);
         lista2.setItems(listaAttivitaTerminate);
     }
@@ -57,65 +48,63 @@ public class ListaAttivitaController implements IController {
     public void init(AppContext ctx, INavigator nav) {
         this.navigator = nav;
         this.dao = ctx.attivitaDao();
+
+        listaAttivitaNonTerminate.addAll(dao.getListaAttivitaNonTerminate());
+        listaAttivitaTerminate.addAll(dao.getListaAttivitaTerminate());
     }
 
+
     @FXML
-    private void nuovaAttivita() throws IOException {
+    private void nuovaAttivita(){
        this.navigator.goTo(ListaPathFXML.MODULO_CREAZIONE_ATTIVITA);
+    }
+
+
+    @FXML
+    private void updateTask(){
+        navigator.goTo(ListaPathFXML.MODULO_MODIFICA_ATTIVITA, lista1.getSelectionModel().getSelectedItem());
+    }
+
+
+    @FXML
+    private void goBack(){
+        this.navigator.goTo(ListaPathFXML.START_MENU);
     }
 
     @FXML
     private void eliminaAttivita(){
         Attivita selezionata = lista1.getSelectionModel().getSelectedItem();
 
+        String msg1 = "Seleziona un'attività da eliminare";
         if (selezionata == null) {
-            new Alert(Alert.AlertType.WARNING, "Seleziona un'attività da eliminare.").showAndWait();
+            AlertUtil.warn(msg1);
             return;
         }
 
-        if(confermaEliminazione(selezionata, message1)){
+        String msg2 = "Vuoi eliminare l'attività: ";
+        if(AlertUtil.confirm(selezionata.getNome(), msg2)){
             dao.delete(selezionata.getId());
             listaAttivitaNonTerminate.remove(selezionata);
         }
     }
 
+
     @FXML
     private void eliminaTutto(){
 
+        String msg1 = "Nessuna attivita è al momento nella lista";
         if(listaAttivitaNonTerminate.isEmpty()){
-            new Alert(Alert.AlertType.WARNING, "Nessuna attivita è al momento nella lista.").showAndWait();
+            AlertUtil.warn(msg1);
             return;
         }
 
-        if(confermaEliminazioneTotale(message2))
-        dao.clearAndResetIdentity();
-        listaAttivitaNonTerminate.clear();
-    }
+        String msg2 = "Vuoi eliminare tutto il contenuto della lista ?";
+        String title = "Conferma eliminazione";
+        if(AlertUtil.confirm(title, msg2)){
+            dao.clearAndResetIdentity();
+            listaAttivitaNonTerminate.clear();
+        }
 
-    private boolean confermaEliminazione(Attivita selezionata, String m){
-        Alert conferma = new Alert(Alert.AlertType.CONFIRMATION,
-                m + selezionata.getNome() + " ?",
-                ButtonType.YES, ButtonType.NO);
-        conferma.setTitle("Conferma eliminazione");
-
-        return conferma.showAndWait().orElse(ButtonType.NO) == ButtonType.YES;
-    }
-
-    private boolean confermaEliminazioneTotale(String m){
-        Alert conferma = new Alert(Alert.AlertType.CONFIRMATION,
-                m,
-                ButtonType.YES, ButtonType.NO);
-        conferma.setTitle("Conferma eliminazione totale");
-
-        return  conferma.showAndWait().orElse(ButtonType.NO) == ButtonType.YES;
-    }
-    @FXML
-    private void updateTask(){
-        navigator.goTo(ListaPathFXML.MODULO_MODIFICA_ATTIVITA, lista1.getSelectionModel().getSelectedItem());
-    }
-    @FXML
-    private void goBack(){
-        this.navigator.goTo(ListaPathFXML.START_MENU);
     }
 
 

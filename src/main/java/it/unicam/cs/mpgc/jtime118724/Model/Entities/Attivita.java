@@ -23,14 +23,14 @@ public class Attivita implements IAttivita {
     private String descrizione;
 
     @Convert(converter = ConvertitoreLatoPersistenza.class)
-    private Duration tempo_stimato;
+    private Duration tempoStimato;
 
     @Convert(converter = ConvertitoreLatoPersistenza.class)
-    private Duration tempo_effettivo;
+    private  Duration tempoEffettivo;
 
-    private LocalDate data_pianificata;
+    private LocalDate dataPianificata;
 
-    private LocalDate data_creazione;
+    private LocalDate dataCreazione;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PROGETTO_ID")
@@ -44,17 +44,24 @@ public class Attivita implements IAttivita {
     public Attivita(String nome, String descrizione, Duration t_s) {
         this.nome = nome;
         this.descrizione = descrizione;
-        this.tempo_stimato = t_s;
+        this.tempoStimato = t_s;
         this.stato = Stato.NON_TERMINATA;
-        this.data_creazione = LocalDate.now();
+        this.dataCreazione = LocalDate.now();
     }
 
-    public void setTempo_effettivo(Duration t_s) {
-        this.tempo_effettivo = t_s;
+    public void setTempoEffettivo(Duration t) {
+        if (t == null) {
+            throw new IllegalArgumentException("Il tempo effettivo non può essere null.");
+        }
+        if (this.tempoEffettivo != null) {
+            throw new IllegalStateException("Il tempo effettivo è già stato impostato e non può essere modificato.");
+        }
+        if (t.isNegative() || t.isZero()) {
+            throw new IllegalArgumentException("Il tempo effettivo deve essere > 0.");
+        }
+
+        this.tempoEffettivo = t;
         this.stato = this.stato.cambiaStato();
     }
 
-    public String toString(){
-        return this.nome  + " data creazione: " + this.data_creazione;
-    }
 }

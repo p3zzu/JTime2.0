@@ -1,6 +1,7 @@
 package it.unicam.cs.mpgc.jtime118724.Navigator;
 
 import it.unicam.cs.mpgc.jtime118724.App;
+import it.unicam.cs.mpgc.jtime118724.Controller.Abstract.DataReceiver;
 import it.unicam.cs.mpgc.jtime118724.Controller.Abstract.IController;
 import it.unicam.cs.mpgc.jtime118724.Infrastructure.AppContext;
 import javafx.fxml.FXMLLoader;
@@ -53,6 +54,34 @@ public class SceneNavigator implements INavigator {
             throw new IllegalStateException("Errore nel file Fxml o nel controller: "+ fxml, ex);
         }   catch (IOException ex) {
             throw new IllegalStateException("Impossibile caricare FXML (IO): "+ fxml, ex);
+        }
+    }
+
+    public <T> void goTo(ListaPathFXML fxml, T data) {
+        URL url = check(fxml.getFxml());
+        try {
+            FXMLLoader loader = new FXMLLoader(url);
+            Parent root = loader.load();
+
+            Object c = loader.getController();
+
+            if (c instanceof IController controlled) {
+                controlled.init(ctx, this);
+            }
+
+            if (c instanceof DataReceiver<?> receiver) {
+                @SuppressWarnings("unchecked")
+                DataReceiver<T> r = (DataReceiver<T>) receiver;
+                r.setData(data);
+            }
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (LoadException ex) {
+            throw new IllegalStateException("Errore nel file Fxml o nel controller: " + fxml, ex);
+        } catch (IOException ex) {
+            throw new IllegalStateException("Impossibile caricare FXML (IO): " + fxml, ex);
         }
     }
 

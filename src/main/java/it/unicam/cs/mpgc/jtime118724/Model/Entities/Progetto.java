@@ -1,7 +1,5 @@
 package it.unicam.cs.mpgc.jtime118724.Model.Entities;
 
-import it.unicam.cs.mpgc.jtime118724.Model.Abstractions.StatoAttivita;
-import it.unicam.cs.mpgc.jtime118724.Model.Abstractions.StatoProgetto;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -32,8 +30,12 @@ public class Progetto {
     @OneToMany(mappedBy = "progetto",cascade = CascadeType.ALL)
     private List<Attivita> listaAttivita;
 
+    private int numAttivitaCompletate;
+
+    private int numAttivitaNonCompletate;
+
     @Enumerated(EnumType.STRING)
-    private StatoProgetto stato;
+    private Stato stato;
 
     protected Progetto(){ }
 
@@ -41,7 +43,9 @@ public class Progetto {
         this.nome = name;
         this.descrizione = descrizione;
         this.listaAttivita = new ArrayList<>();
-        this.stato = StatoProgetto.NON_COMPLETATO;
+        this.stato = Stato.NON_COMPLETATO;
+        this.numAttivitaCompletate = 0;
+        this.numAttivitaNonCompletate = 0;
     }
 
     public void addAttivita(Attivita attivita){
@@ -49,6 +53,7 @@ public class Progetto {
         this.listaAttivita.add(attivita);
         calcoloValoreTempoTotStimato(attivita, flag);
         attivita.setProgetto(this);
+        this.numAttivitaNonCompletate++;
     }
 
     public void removeAttivita(Attivita attivita){
@@ -56,6 +61,7 @@ public class Progetto {
         this.listaAttivita.remove(attivita);
         calcoloValoreTempoTotStimato(attivita, flag);
         attivita.setProgetto(null);
+        this.numAttivitaNonCompletate--;
     }
 
     private void calcoloValoreTempoTotStimato(Attivita attivita, Boolean flag){
@@ -68,11 +74,14 @@ public class Progetto {
     }
 
     public void controlloStatoProgetto(){
-        boolean flag = false;
+        int i = 0;
         for(Attivita attivita : this.listaAttivita){
-            if(attivita.getStato() == StatoAttivita.NON_TERMINATA)flag = true;
+            if(attivita.getStato() == Stato.NON_TERMINATA){
+                i++;
+            }
         }
-        if(!flag) completato();
+        this.numAttivitaNonCompletate = i;
+        if(i == 0) completato();
     }
 
 }

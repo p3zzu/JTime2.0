@@ -1,6 +1,7 @@
 package it.unicam.cs.mpgc.jtime118724.Model.Abstractions;
 
 import it.unicam.cs.mpgc.jtime118724.Model.Entities.Progetto;
+import it.unicam.cs.mpgc.jtime118724.Model.Entities.Stato;
 
 public interface IAttivita {
     Long getId();
@@ -17,7 +18,7 @@ public interface IAttivita {
 
     Progetto getProgetto();
 
-    StatoAttivita getStato();
+    Stato getStato();
 
     void setId(Long id);
 
@@ -33,5 +34,5 @@ public interface IAttivita {
 
     void setProgetto(Progetto progetto);
 
-    void setStato(StatoAttivita stato);
+    void setStato(Stato stato);
 }

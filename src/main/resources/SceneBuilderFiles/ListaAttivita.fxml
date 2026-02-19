@@ -5,55 +5,31 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.mpgc.jtime118724.Controller.ListaAttivitaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.mpgc.jtime118724.Controller.Default.Attivita.ListaAttivitaController">
    <children>
-      <BorderPane layoutX="200.0" layoutY="100.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-         <top>
-            <Label text="Lista Attività" BorderPane.alignment="CENTER">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-         </top>
-         <center>
-            <ListView fx:id="lista" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </BorderPane.margin>
-            </ListView>
-         </center>
-         <bottom>
-            <HBox alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="580.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#nuovaAttivita" text="Nuova Attività">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#eliminaAttivita" text="Elimina">
-                     <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" onAction="#eliminaTutto" text="Elimina tutto" />
-                  <Button mnemonicParsing="false" text="Modifica">
-                     <HBox.margin>
-                        <Insets left="5.0" right="5.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </HBox>
-         </bottom>
-      </BorderPane>
+      <Label alignment="CENTER" layoutX="286.0" layoutY="14.0" prefHeight="30.0" prefWidth="580.0" text="Lista Attivita" AnchorPane.bottomAnchor="360.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="10.0" layoutY="40.0" prefHeight="40.0" prefWidth="300.0" text="Lista Attivita Non Terminate" AnchorPane.bottomAnchor="340.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="40.0" />
+      <Label layoutX="300.0" layoutY="40.0" text="Lista Attivita Terminate" AnchorPane.bottomAnchor="340.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0" />
+      <ListView fx:id="lista1" layoutX="8.0" layoutY="57.333333333333336" prefHeight="293.0" prefWidth="290.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="57.0">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </ListView>
+      <ListView fx:id="lista2" layoutX="300.0" layoutY="57.333333333333336" prefHeight="293.0" prefWidth="290.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="57.0">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </ListView>
+      <Button layoutX="352.0" layoutY="360.0" mnemonicParsing="false" onAction="#eliminaAttivita" prefHeight="30.0" prefWidth="66.0" text="Elimina" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="352.0" AnchorPane.rightAnchor="182.66666666666663" AnchorPane.topAnchor="360.0" />
+      <Button layoutX="424.0" layoutY="360.0" mnemonicParsing="false" onAction="#updateTask" prefHeight="30.0" prefWidth="76.0" text="Modifica" AnchorPane.bottomAnchor="10.666666666666629" AnchorPane.leftAnchor="424.0" AnchorPane.rightAnchor="101.33333333333331" AnchorPane.topAnchor="360.0" />
+      <Button layoutX="253.0" layoutY="360.0" mnemonicParsing="false" onAction="#nuovaAttivita" prefHeight="30.0" prefWidth="95.0" text="Nuova Attivita" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="253.0" AnchorPane.rightAnchor="253.0" AnchorPane.topAnchor="360.0" />
+      <Button layoutX="508.0" layoutY="360.0" mnemonicParsing="false" onAction="#eliminaTutto" prefHeight="30.0" prefWidth="81.0" text="Elimina Lista" />
+      <Button layoutX="10.0" layoutY="363.0" mnemonicParsing="false" onAction="#goBack" prefHeight="25.0" prefWidth="49.0" text="&lt;--" />
    </children>
 </AnchorPane>

@@ -1,5 +1,7 @@
 package it.unicam.cs.mpgc.jtime118724.Dao;
 
+import it.unicam.cs.mpgc.jtime118724.Dao.Abstract.IDao;
+import it.unicam.cs.mpgc.jtime118724.Model.Entities.Stato;
 import it.unicam.cs.mpgc.jtime118724.Util.JpaUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -8,7 +10,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public abstract class AbstractDao<T> implements IDao<T>{
+public abstract class AbstractDao<T> implements IDao<T> {
 
 
     private final Class<T> entityClass;
@@ -16,7 +18,7 @@ public abstract class AbstractDao<T> implements IDao<T>{
 
     public AbstractDao(Class<T> entityClass) {
         this.entityClass = entityClass;
-        this.tableName = entityClass.getSimpleName().toUpperCase();
+        this.tableName = entityClass.getSimpleName();
     }
 
     private void operationTransaction( Consumer<EntityManager> operation ) {
@@ -34,7 +36,7 @@ public abstract class AbstractDao<T> implements IDao<T>{
         }
     }
 
-    private <R> R executeQuery (Function<EntityManager, R> query) {
+    protected <R> R executeQuery (Function<EntityManager, R> query) {
         try (EntityManager em = JpaUtil.getEntityManager()) {
             return query.apply(em);
         }
@@ -64,14 +66,22 @@ public abstract class AbstractDao<T> implements IDao<T>{
     }
 
     @Override
+    public List<T> getListaByStato(Stato stato) {
+        String query = "SELECT e FROM " + this.tableName + " e WHERE e.stato = :stato";
+        return executeQuery(em -> em.createQuery(query, entityClass)
+                .setParameter("stato", stato)
+                .getResultList());
+    }
+
+    @Override
     public List<T> getAll() {
         return executeQuery(em -> em.createNamedQuery(entityClass.getSimpleName(), entityClass).getResultList());
     }
 
     public void clearAndResetIdentity() {
         operationTransaction(em -> {
-            em.createNativeQuery("DELETE FROM " + this.tableName).executeUpdate();// mi cancella tutte le righe della tabella
-            em.createNativeQuery("ALTER TABLE " + this.tableName + " ALTER COLUMN ID RESTART WITH 1").executeUpdate(); // fa ripartire l'autoincremento del valore dell'id a 1
+            em.createNativeQuery("DELETE FROM " + this.tableName.toUpperCase()).executeUpdate();// mi cancella tutte le righe della tabella
+            em.createNativeQuery("ALTER TABLE " + this.tableName.toUpperCase() + " ALTER COLUMN ID RESTART WITH 1").executeUpdate(); // fa ripartire l'autoincremento del valore dell'id a 1
             //em.createNativeQuery("ALTER TABLE " + this.tableName + " ALTER COLUMN ID RESTART WITH 1").executeUpdate();
         });
     }

@@ -111,7 +111,7 @@ public class ListaAttivitaController implements IController {
     }
     @FXML
     private void updateTask(){
-        navigator.goTo(ListaPathFXML.MODULO_MODIFICA_ATTIVITA);
+        navigator.goTo(ListaPathFXML.MODULO_MODIFICA_ATTIVITA, lista1.getSelectionModel().getSelectedItem());
     }
     @FXML
     private void goBack(){
